@@ -16,7 +16,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-	
 	<security:authorize access = "isAnonymous()">
 	
 		<form:form action="consumer/create.do" modelAttribute="consumer">
@@ -78,10 +77,3 @@
 		</form:form>
 	
 	</security:authorize>
-	
-	
-	
-	
-
-
-<p><spring:message code="customer.action.1" /></p>
