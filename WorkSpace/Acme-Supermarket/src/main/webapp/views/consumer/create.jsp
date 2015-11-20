@@ -16,27 +16,65 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-	<!-- Definir variable -->
-	<jstl:set 
-		var = "name"
-		value = "${exp}" />
-	<!-- Mostrar un mensaje -->
-	<spring:message
-		code = "hace Referencia Al codigo en la traduccion"
-		var = "en esta variable se guarda el resultado (en caso de no ponerla lo muestra automáticamente)" />
-	<!-- Seguridad -->
-	<security:authorize
-		access = "isAnonymous()">
-		<!-- código a ejecutar o mostrar -->
-	</security:authorize>
-	
-	
 	
 	<security:authorize access = "isAnonymous()">
 	
 		<form:form action="consumer/create.do" modelAttribute="consumer">
-		
+			
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			
+			<form:label path="name">
+				<spring:message code = "consumer.create.name"/>
+			</form:label>
+			<form:input path="name"/>
+			<form:errors cssClass="error" path="name"/>
+			<br />
+			
+			<form:label path="surname">
+				<spring:message code = "consumer.create.surname"/>
+			</form:label>
+			<form:input path="surname"/>
+			<form:errors cssClass="error" path="surname"/>
+			<br />
+			
+			<form:label path="email">
+				<spring:message code = "consumer.create.email"/>
+			</form:label>
+			<form:input path="email"/>
+			<form:errors cssClass="error" path="email"/>
+			<br />
+						
+			<form:label path="phone">
+				<spring:message code = "consumer.create.phone"/>
+			</form:label>
+			<form:input path="phone"/>
+			<form:errors cssClass="error" path="phone"/>
+			<br />
+			
+			<form:label path="username">
+				<spring:message code="consumer.create.username" />
+			</form:label>
+			<form:input path="username" />	
+			<form:errors class="error" path="username" />
+			<br />
+
+			<form:label path="password">
+				<spring:message code="consumer.create.password" />
+			</form:label>
+			<form:password path="password" />
+			<form:errors class="error" path="password" />
+			<br />
+			
+			<input type="submit" name="save"
+				value="<spring:message code="customer.create.save"/>"/>
+			&nbsp;
+			<input type="button" name="cancel"
+				value="<spring:message code="consumer.create.cancel" />"
+				onclick="javascript: relativeRedir('/');" />
+			<br />
+			
+			
 		</form:form>
 	
 	</security:authorize>
