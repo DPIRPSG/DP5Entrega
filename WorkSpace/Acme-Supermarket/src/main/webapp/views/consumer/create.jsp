@@ -16,4 +16,34 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+	<!-- Definir variable -->
+	<jstl:set 
+		var = "name"
+		value = "${exp}" />
+	<!-- Mostrar un mensaje -->
+	<spring:message
+		code = "hace Referencia Al codigo en la traduccion"
+		var = "en esta variable se guarda el resultado (en caso de no ponerla lo muestra automáticamente)" />
+	<!-- Seguridad -->
+	<security:authorize
+		access = "isAnonymous()">
+		<!-- código a ejecutar o mostrar -->
+	</security:authorize>
+	
+	
+	
+	<security:authorize access = "isAnonymous()">
+	
+		<form:form action="consumer/create.do" modelAttribute="consumer">
+		
+		</form:form>
+	
+	</security:authorize>
+	
+	
+	
+	
+
+
 <p><spring:message code="customer.action.1" /></p>
