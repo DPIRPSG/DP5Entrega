@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2015 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="organiser1" />
+		<property name="password" value="66f7546a22eb4c13c4a78d58b0a00194" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ORGANISER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="organiser2" />
+		<property name="password" value="22ef0e5c643538df4e980eb206a10dd3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ORGANISER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Customers -->
+	
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="Customer-1" />
+		<property name="email" value="customer-1@mail.com" />
+		<property name="phone" value="customer-1-phone" />
+		<property name="address" value="Customer-1 address" />
+		<property name="userAccount" ref="userAccount2" />
+		<property name="events">
+			<list>
+				<ref bean="event1" />
+				<ref bean="event2" />
+				<ref bean="event3" />				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="Customer-2" />
+		<property name="email" value="customer-2@mail.com" />
+		<property name="phone" value="customer-2-phone" />
+		<property name="address" value="Customer-2 address" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="events">
+			<list>
+				<ref bean="event2" />
+				<ref bean="event3" />
+				<ref bean="event4" />				
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- Organisers -->
+		
+	<bean id="organiser1" class="domain.Organiser">
+		<property name="name" value="Organiser-1" />
+		<property name="email" value="Organiser-1@mail.com" />
+		<property name="phone" value="organiser-1-phone" />
+		<property name="address" value="Organiser-2 address" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="events">
+			<list>
+				<ref bean="event1" />
+				<ref bean="event2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="organiser2" class="domain.Organiser">
+		<property name="name" value="Organiser-2" />
+		<property name="email" value="Organiser-2@mail.com" />
+		<property name="phone" value="organiser-2-phone" />
+		<property name="address" value="Organiser-2 address" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="events">
+			<list>
+				<ref bean="event3" />
+				<ref bean="event4" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Events -->	
+	
+	<bean id="event1" class="domain.Event">
+		<property name="title" value="Event 1" />
+		<property name="moment" value="12/12/12 12:12" />
+		<property name="description" value="Blah, blah, blah" />
+		<property name="price" value="100.00" />
+		<property name="customers">
+			<list>
+				<ref bean="customer1" />				
+			</list>
+		</property>
+		<property name="organiser" ref="organiser1" />
+	</bean>
+
+	<bean id="event2" class="domain.Event">
+		<property name="title" value="Event 2" />
+		<property name="moment" value="12/12/13 12:12" />
+		<property name="description" value="Blah, blah, blah" />
+		<property name="price" value="12.34" />
+		<property name="customers">
+			<list>
+				<ref bean="customer1" />
+				<ref bean="customer2" />				
+			</list>
+		</property>
+		<property name="organiser" ref="organiser1" />
+	</bean>
+	
+	<bean id="event3" class="domain.Event">
+		<property name="title" value="Event 3" />
+		<property name="moment" value="12/12/12 12:12" />
+		<property name="description" value="Blah, blah, blah" />
+		<property name="price" value="100.00" />
+		<property name="customers">
+			<list>
+				<ref bean="customer1" />
+				<ref bean="customer2" />				
+			</list>
+		</property>
+		<property name="organiser" ref="organiser2" />
+	</bean>
+
+	<bean id="event4" class="domain.Event">
+		<property name="title" value="Event 4" />
+		<property name="moment" value="12/12/13 12:12" />
+		<property name="description" value="Blah, blah, blah" />
+		<property name="price" value="12.34" />
+		<property name="customers">
+			<list>
+				<ref bean="customer2" />				
+			</list>
+		</property>
+		<property name="organiser" ref="organiser2" />
+	</bean>	
+	
+</beans>
