@@ -32,9 +32,35 @@
 		<form:input path="picture"/>
 		<form:errors cssClass="error" path="picture"/>
 		<br />
-
-	<!-- Selección de tasas ! ! ! ! -->
 		
+		<form:label path="tax">
+			<spring:message code = "category.edit.tax"/>
+		</form:label>
+		<form:select path="tax">
+			<jstl:if test="${category.id == 0}">
+				<form:option label="---" value="0"/>
+			</jstl:if>
+			<jstl:if test="${category.id != 0}">
+				<form:option label="${category.tax.name}" value="${category.tax.id}"/>
+			</jstl:if>
+			<form:options items="${taxes}" itemLabel="name" itemValue="id"/>
+		</form:select>
+		<form:errors clas="error" path="tax"/>
+		<br />
+	
+
+	<jstl:if test="${category.id == 0 }">
+		<input type="submit" name="save" value="<spring:message code="category.create" />" />	
+	</jstl:if>
+	
+	<jstl:if test="${category.id != 0 }">
+		<input type="submit" name="save" value="<spring:message code="category.save" />" />
+		<input type="submit" name="delete" value="<spring:message code="category.delete" />" />
+	</jstl:if>
+	
+	<a href="category/list.do">
+		<input type="button" value="<spring:message code="category.cancel" />" />
+	</a>
 		
 	</form:form>
 
