@@ -2,6 +2,7 @@
 .metadata
 Servers
 Scrapbook
+*.class
 
 # Evitar subir cosas de Dolphin (Linux-KDE)
 .directory 
