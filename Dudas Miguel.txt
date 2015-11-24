@@ -1,0 +1,14 @@
+En La vista de edit de Item:
+
+¿Cómo los relaciono con los comments y storages si no están implementadas sus vistas? ¿Hidden y listo?
+
+
+¿y con Category? ¿Hago un form:select?
+
+
+Falta el atributo deleted que no se bien que hacer con él.
+
+
+En tags puse un textarea, pero, eso crea un String cuando tags es un Collection<String> ¿Qué hago?
+
+Ver lo que hice con el atributo SKU.

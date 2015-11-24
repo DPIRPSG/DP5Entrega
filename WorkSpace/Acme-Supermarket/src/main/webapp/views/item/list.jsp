@@ -21,6 +21,15 @@
 	</security:authorize>
 	
 	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="item/administrator/edit.do?itemId=${row.id}">
+				<spring:message	code="item.edit" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
+	
 	<!-- Cosas en común -->
 	
 	<spring:message code="item.category" var="categoryHeader" />
@@ -36,6 +45,15 @@
 	<display:column property="description" title="${descriptionHeader}" sortable="false" />
 		
 </display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<a href="item/administrator/create.do"> <spring:message
+				code="item.create" />
+		</a>
+	</div>
+</security:authorize>
+
 
 <form:form action="item/list-search.do" modelAttribute="item">
 	<form:input path="search-word"/>
