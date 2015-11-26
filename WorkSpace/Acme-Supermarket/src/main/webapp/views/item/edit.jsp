@@ -13,6 +13,9 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="deleted"/>
+	<form:hidden path="comments"/>
+	<form:hidden path="storages"/>
 
 	
 	
@@ -22,11 +25,11 @@
 	
 	<jstl:if test="${item.id == 0}">
 		<form:label path="sku">
-		<spring:message code="item.sku" />:
-	</form:label>
-	<form:input path="sku" />
-	<form:errors cssClass="error" path="sku" />
-	<br />
+			<spring:message code="item.sku" />:
+		</form:label>
+		<form:input path="sku" />
+		<form:errors cssClass="error" path="sku" />
+		<br />
 	</jstl:if>
 
 	<form:label path="name">
@@ -64,7 +67,15 @@
 	<form:errors cssClass="error" path="picture" />
 	<br />
 	
-
+	<form:label path="category">
+		<spring:message code="item.category" />:
+	</form:label>
+	<form:select id="categories" path="category">
+		<form:option value="0" label="----" />		
+		<form:options items="${categories}" itemValue="id" itemLabel="name" />
+	</form:select>
+	<form:errors cssClass="error" path="category" />
+	<br />
 	
 	<br />
 

@@ -9,6 +9,6 @@ En La vista de edit de Item:
 Falta el atributo deleted que no se bien que hacer con él.
 
 
-En tags puse un textarea, pero, eso crea un String cuando tags es un Collection<String> ¿Qué hago?
+En tags puse un textarea, pero, eso crea un String cuando tags es un Collection<String> ¿Qué hago? ¿Un Trim?
 
 Ver lo que hice con el atributo SKU.

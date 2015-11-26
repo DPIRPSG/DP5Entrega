@@ -43,6 +43,14 @@
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" sortable="false" />
+	
+	<spring:message code="item.tags" var="tagsHeader" />
+	<display:column property="tags" title="${tagsHeader}" sortable="false" />
+	
+	<spring:message code="item.picture" var="pictureHeader" />
+	<display:column>
+		<img src="${pictureHeader}" />
+	</display:column>
 		
 </display:table>
 
