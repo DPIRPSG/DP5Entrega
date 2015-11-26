@@ -10,10 +10,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasRole('CONSUMER')">
-
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="items" requestURI="${requestURI}" id="row">
-	
+		<!-- Action links -->
 		<display:column>
 			<a href="shopping-cart/consumer/delete.do?itemId=${row.id}"
 			onclick="javascript: return confirm('<spring:message code="item.confirm.delete" />')">
@@ -21,6 +21,7 @@
 			</a>
 		</display:column>
 		
+		<!-- Attributes -->
 		<spring:message code="item.picture" var="pictureHeader" />
 		<display:column property="picture" title="${pictureHeader}" sortable="false" />
 		
@@ -41,6 +42,7 @@
 	
 	</display:table>
 	
+	<!-- Action links -->
 	<jstl:if test="${numberItems} >= 1">
 		<a href="shopping-cart/consumer/checkout.do?consumerUsername=<security:authentication property=principal.username/>" 
 			onclick="javascript: return confirm('<spring:message code="item.confirm.checkout" />')">
