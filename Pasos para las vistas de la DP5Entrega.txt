@@ -1,0 +1,29 @@
+Pasos para las vistas de la DP5Entrega:
+
+ROADMAP>MASTER_PAGE
+- 31) Creación de tiles.xml y tiles_es.xml
+- 32) PREGUNTAR
+
+ROADMAP>IMPLEMENTING_VIEWS>COMMON_DESINGS
+- 45) URLs de los links de la vista list.jsp
+- 48) URLs de los links de la vista edit.jsp
+
+ROADMAP>IMPLEMENTING_VIEWS>THE_JSP_TECHNOLOGY
+- 52) Encabezado y lista de prefijos de los .jsp
+- 56 a 59) JSTL: out, set, if, choose, for each.
+- 62 a 65) Spring base tag: message, messages.properties, url
+- 67 a 69) Spring security: authorize (isAnonymous(), isAuthenticated(), hasRole(‘ADMIN/CONSUMER/CLERK’)), authentication
+- 72 a 83) Spring form: form (action, modelAttribute, hidden, label, input, textarea, password, select+option+options, errors, input+type+name+value, ), 
+- 86 a 91) Display tag: table+name+id+requestURI+pagesize+class, column (free column, property column)
+- 94 a 96) Miscellaneous: useBean, fmt
+
+ROADMAP>PROJECT_CONFIGURATION
+- 98) Archivos en Deployed Resources > webapp > views
+- 99) Archivos: edit.jsp, list.jsp, messages_xx.properties, tiles_xx.xml
+- 100) Predefined subfolders: master-page, misc, security, welcome
+- 101) master-page: footer.jsp (change copyright), header.jsp (change menu), layout.jsp, messages_xx.properties (add new message codes to support the options of your menu bar), tiles_xx.xml
+- 102) misc: No tenemos que cambiar nada
+- 103) security: No tenemos que cambiar nada
+- 104) welcome: No tenemos que cambiar nada
+- 105) tiles.xml en src/main/resources/spring/config: you need to add a new value to the list for every new subfolder you create.
+-106) i18n-l10n.xml en src/main/resources/spring/config: you need to add new entries to this list whenever you add new subfolders.
