@@ -57,7 +57,8 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="consumer/register.do"><spring:message code="master.page.register" /></a></li>
+			<li><a class="fNiv" href="item/list.do"><spring:message code="master.page.catalogue" /></a></li>
+			<li><a class="fNiv" href="consumer/create.do"><spring:message code="master.page.register" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
