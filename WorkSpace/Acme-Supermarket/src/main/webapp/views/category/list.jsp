@@ -8,20 +8,45 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<security:authorize access="hasRole('ADMIN')">
+
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="categories" requestURI="${requestURI}" id="row">
 	
-	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<a href="category/edit.do?categoryId=${row.id}">
-				<spring:message	code="category.edit" />
+				<spring:message	code="category.list.edit" />
 			</a>
-		</display:column>		
-	</security:authorize>
+		</display:column>
+		
+		<spring:message code="category.list.name" var="nameHeader" />
+		<display:column property="name" title="${nameHeader}" sortable="true" />
+		
+		<spring:message code="category.list.description" var="descriptionHeader" />
+		<display:column property="description" title="${descriptionHeader}" sortable="true" />
+		
+		<spring:message code="category.list.picture" var="pictureHeader" />
+		<display:column>
+			<img src="${pictureHeader}" />
+		</display:column>
+		
+		<spring:message code="category.list.taxName" var="taxNameHeader" />
+		<display:column property="taxName" title="${taxNameHeader}" sortable="true" />
+		
+		<spring:message code="category.list.taxValue" var="taxValueHeader" />
+		<display:column property="taxValue" title="${taxValueHeader}" sortable="true" />
+
+		<div>
+			<a href="item/administrator/create.do"> <spring:message
+					code="category.list.create" />
+			</a>
+		</div>
+
 	
 </display:table>
 	
-	
+</security:authorize>	
 	
 
 
