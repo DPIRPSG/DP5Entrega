@@ -10,7 +10,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="items-category" requestURI="item/list-category.do" id="row">
+	name="items" requestURI="${requestURI}" id="row">
+	
+	<security:authorize access="hasRole('CONSUMER')">
+		<display:column>
+			<a href="item/consumer/add.do?itemId=${row.id}">
+				<spring:message	code="item.add" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
+	
+	<!-- Cosas en común -->
 	
 	<spring:message code="item.category" var="categoryHeader" />
 	<display:column property="category" title="${categoryHeader}" sortable="true" />
@@ -26,10 +37,7 @@
 		
 </display:table>
 
-<form:form action="item/list-category.do" modelAttribute="item">
-	
+<form:form action="item/list-search.do" modelAttribute="item">
 	<form:input path="search-word"/>
-	
 	<input type="submit" name="search-button" value="<spring:message code="search.button"/>"/>
-	
 </form:form>
