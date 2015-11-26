@@ -33,19 +33,26 @@
 		<form:errors cssClass="error" path="picture"/>
 		<br />
 		
+		<!-- Select tax -->
 		<form:label path="tax">
 			<spring:message code = "category.edit.tax"/>
 		</form:label>
 		<form:select path="tax">
-			<jstl:if test="${category.id == 0}">
+		 	<jstl:if test="${category.id == 0}">
 				<form:option label="---" value="0"/>
 			</jstl:if>
-			<jstl:if test="${category.id != 0}">
-				<form:option label="${category.tax.name}" value="${category.tax.id}"/>
-			</jstl:if>
-			<form:options items="${taxes}" itemLabel="name" itemValue="id"/>
+		    <jstl:forEach items="${taxes}" var="t">
+		        <jstl:choose>
+		            <jstl:when test="${t.id eq category.tax.id}">
+		                <option value="${t.id}" selected="selected">${t.name}</option>
+		            </jstl:when>
+		            <jstl:otherwise>
+		                <option value="${t.id}">${t.name}</option>
+		            </jstl:otherwise>
+		        </jstl:choose> 
+		    </jstl:forEach>
 		</form:select>
-		<form:errors clas="error" path="tax"/>
+		<form:errors cssClass="error" path="tax"/>
 		<br />
 	
 
