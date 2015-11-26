@@ -48,7 +48,9 @@
 	<display:column property="tags" title="${tagsHeader}" sortable="false" />
 	
 	<spring:message code="item.picture" var="pictureHeader" />
-	<display:column property="picture" title="${pictureHeader}" sortable="false" />
+	<display:column>
+		<img src="${pictureHeader}" />
+	</display:column>
 		
 </display:table>
 
