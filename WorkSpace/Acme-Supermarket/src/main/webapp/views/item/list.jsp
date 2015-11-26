@@ -10,7 +10,27 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="items-category" requestURI="item/list-category.do" id="row">
+	name="items" requestURI="${requestURI}" id="row">
+	
+	<security:authorize access="hasRole('CONSUMER')">
+		<display:column>
+			<a href="item/consumer/add.do?itemId=${row.id}">
+				<spring:message	code="item.add" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="item/administrator/edit.do?itemId=${row.id}">
+				<spring:message	code="item.edit" />
+			</a>
+		</display:column>		
+	</security:authorize>
+	
+	
+	<!-- Cosas en común -->
 	
 	<spring:message code="item.category" var="categoryHeader" />
 	<display:column property="category" title="${categoryHeader}" sortable="true" />
@@ -23,13 +43,25 @@
 
 	<spring:message code="item.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" sortable="false" />
+	
+	<spring:message code="item.tags" var="tagsHeader" />
+	<display:column property="tags" title="${tagsHeader}" sortable="false" />
+	
+	<spring:message code="item.picture" var="pictureHeader" />
+	<display:column property="picture" title="${pictureHeader}" sortable="false" />
 		
 </display:table>
 
-<form:form action="item/list-category.do" modelAttribute="item">
-	
+<security:authorize access="hasRole('ADMIN')">
+	<div>
+		<a href="item/administrator/create.do"> <spring:message
+				code="item.create" />
+		</a>
+	</div>
+</security:authorize>
+
+
+<form:form action="item/list-search.do" modelAttribute="item">
 	<form:input path="search-word"/>
-	
 	<input type="submit" name="search-button" value="<spring:message code="search.button"/>"/>
-	
 </form:form>
