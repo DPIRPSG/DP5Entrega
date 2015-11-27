@@ -9,9 +9,10 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 	
+<!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="items" requestURI="${requestURI}" id="row">
-	
+	<!-- Action links -->
 	<security:authorize access="hasRole('CONSUMER')">
 		<display:column>
 			<a href="item/consumer/add.do?itemId=${row.id}">
@@ -19,7 +20,6 @@
 			</a>
 		</display:column>		
 	</security:authorize>
-	
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
@@ -30,8 +30,7 @@
 	</security:authorize>
 	
 	
-	<!-- Cosas en común -->
-	
+	<!-- Attributes -->
 	<spring:message code="item.category" var="categoryHeader" />
 	<display:column property="category" title="${categoryHeader}" sortable="true" />
 	
@@ -53,7 +52,7 @@
 	</display:column>
 		
 </display:table>
-
+<!-- Action links -->
 <security:authorize access="hasRole('ADMIN')">
 	<div>
 		<a href="item/administrator/create.do"> <spring:message
@@ -62,7 +61,7 @@
 	</div>
 </security:authorize>
 
-
+<!-- Search Form -->
 <form:form action="item/list-search.do" modelAttribute="item">
 	<form:input path="search-word"/>
 	<input type="submit" name="search-button" value="<spring:message code="search.button"/>"/>

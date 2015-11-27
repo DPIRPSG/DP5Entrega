@@ -21,39 +21,39 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('CONSUMER')">
-			<li><a class="fNiv" href="consumer/item/list.do"><spring:message code="master.page.catalogue" /></a></li>
-			<li><a class="fNiv" href="consumer/shopping-cart/list.do"><spring:message code="master.page.shopping-cart" /></a></li>
-			<li><a class="fNiv" href="consumer/order/list.do"><spring:message code="master.page.orders" /></a></li>
-			<li><a class="fNiv" href="consumer/folder/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="item/consumer/list.do"><spring:message code="master.page.catalogue" /></a></li>
+			<li><a class="fNiv" href="shopping-cart/consumer/list.do"><spring:message code="master.page.shopping-cart" /></a></li>
+			<li><a class="fNiv" href="order/consumer/list.do"><spring:message code="master.page.orders" /></a></li>
+			<li><a class="fNiv" href="folder/consumer/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.manage" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/item/list.do"><spring:message code="master.page.manage.catalogue" /></a></li>
-					<li><a href="administrator/taxe/list.do"><spring:message code="master.page.manage.taxes" /></a></li>			
-					<li><a href="administrator/category/list.do"><spring:message code="master.page.manage.categories" /></a></li>	
-					<li><a href="administrator/warehouse/list.do"><spring:message code="master.page.manage.warehouses" /></a></li>			
+					<li><a href="item/administrator/list.do"><spring:message code="master.page.manage.catalogue" /></a></li>
+					<li><a href="tax/administrator/list.do"><spring:message code="master.page.manage.taxes" /></a></li>			
+					<li><a href="category/administrator/list.do"><spring:message code="master.page.manage.categories" /></a></li>	
+					<li><a href="warehouse/administrator/list.do"><spring:message code="master.page.manage.warehouses" /></a></li>			
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/consumer/list.do"><spring:message code="master.page.list.consumers" /></a></li>
-					<li><a href="administrator/order/list.do"><spring:message code="master.page.list.orders" /></a></li>
+					<li><a href="consumer/administrator/list.do"><spring:message code="master.page.list.consumers" /></a></li>
+					<li><a href="order/administrator/list.do"><spring:message code="master.page.list.orders" /></a></li>
 				</ul>
 			</li>
-			<li><a class="fNiv" href="administrator/dashboard/list.do"><spring:message code="master.page.dashboard" /></a></li>
-			<li><a class="fNiv" href="administrator/new-clerk/list.do"><spring:message code="master.page.new-clerk" /></a></li>
-			<li><a class="fNiv" href="administrator/folder/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="dashboard/administrator/list.do"><spring:message code="master.page.dashboard" /></a></li>
+			<li><a class="fNiv" href="new-clerk/administrator/list.do"><spring:message code="master.page.new-clerk" /></a></li>
+			<li><a class="fNiv" href="folder/administrator/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CLERK')">
-			<li><a class="fNiv" href="clerk/item/list.do"><spring:message code="master.page.catalogue" /></a></li>
-			<li><a class="fNiv" href="clerk/warehouse/list.do"><spring:message code="master.page.warehouses" /></a></li>
-			<li><a class="fNiv" href="clerk/order/list.do"><spring:message code="master.page.orders" /></a></li>
-			<li><a class="fNiv" href="clerk/folder/list.do"><spring:message code="master.page.messages" /></a></li>
+			<li><a class="fNiv" href="item/clerk/list.do"><spring:message code="master.page.catalogue" /></a></li>
+			<li><a class="fNiv" href="warehouse/clerk/list.do"><spring:message code="master.page.warehouses" /></a></li>
+			<li><a class="fNiv" href="order/clerk/list.do"><spring:message code="master.page.orders" /></a></li>
+			<li><a class="fNiv" href="folder/clerk/list.do"><spring:message code="master.page.messages" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
