@@ -9,20 +9,20 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<!-- Form -->
 <form:form action="item/administrator/edit.do" modelAttribute="item">
-
+	<!-- Hidden Attributes -->
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="deleted"/>
 	<form:hidden path="comments"/>
 	<form:hidden path="storages"/>
-
-	
 	
 	<jstl:if test="${item.id != 0}">
 		<form:hidden path="sku"/>
 	</jstl:if>
 	
+	<!-- Editable Attributes -->
 	<jstl:if test="${item.id == 0}">
 		<form:label path="sku">
 			<spring:message code="item.sku" />:
@@ -67,20 +67,33 @@
 	<form:errors cssClass="error" path="picture" />
 	<br />
 	
+	<!-- Select tax -->
 	<form:label path="category">
 		<spring:message code="item.category" />:
 	</form:label>
-	<form:select id="categories" path="category">
-		<form:option value="0" label="----" />		
-		<form:options items="${categories}" itemValue="id" itemLabel="name" />
+	<form:select path="category">
+ 		<jstl:if test="${item.id == 0}">
+			<form:option label="---" value="0"/>
+		</jstl:if>
+	    <jstl:forEach items="${categories}" var="c">
+	        <jstl:choose>
+	            <jstl:when test="${c.id eq item.category.id}">
+	                <option value="${c.id}" selected="selected">${c.name}</option>
+	            </jstl:when>
+	            <jstl:otherwise>
+	                <option value="${c.id}">${c.name}</option>
+	            </jstl:otherwise>
+	        </jstl:choose> 
+	    </jstl:forEach>
 	</form:select>
 	<form:errors cssClass="error" path="category" />
 	<br />
 	
-	<br />
-
-	<input type="submit" name="save"
-		value="<spring:message code="item.save" />" />&nbsp; 
+	<!-- Action buttons -->
+	<jstl:if test="${item.id == 0 }">
+		<input type="submit" name="save"
+			value="<spring:message code="item.create" />" />&nbsp; 
+	</jstl:if>
 	<jstl:if test="${item.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="item.delete" />"
@@ -88,9 +101,7 @@
 	</jstl:if>
 	<input type="button" name="cancel"
 		value="<spring:message code="item.cancel" />"
-		onclick="javascript: relativeRedir('item/administrator/list-item.do');" />
+		onclick="javascript: relativeRedir('item/administrator/list.do');" />
 	<br />
-
-
 
 </form:form>

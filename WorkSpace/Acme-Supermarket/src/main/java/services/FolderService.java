@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Folder;
+import domain.Message;
 
 import repositories.FolderRepository;
 
@@ -72,6 +73,53 @@ public class FolderService {
 	}
 	
 	//Other business methods -------------------------------------------------
+	
+	/**
+	 * Añade un mensaje a una carpeta dada
+	 */
+	public void addMessage(Folder f, Message m){
+		Assert.notNull(f);
+		Assert.notNull(m);
+		
+		f.addMessage(m);
+		this.save(f);
+	}
+	
+	/**
+	 * Borrar un mensaje de una carpeta dada
+	 */
+	public void removeMessage(Folder f, Message m){
+		Assert.notNull(m);
+		Assert.notNull(f);
+		if (f.getName().equals("TrashBox") && f.getIsSystem()){
+			f.removeMessage(m);
+			this.save(f);
+		}
+		else{
+			Actor actor = actorService.findByPrincipal();
+			int count;
+			
+			count = 0;
+			Folder trashBox;
+			
+			trashBox = null;
+			
+			for(Folder folder:actor.getFolders()){
+				if(folder.getMessages().contains(m)){
+					count++;
+				}
+				if(folder.getName().equals("TrashBox") && folder.getIsSystem()){
+					trashBox = folder;
+				}
+			}
+			f.removeMessage(m);
+			if(count == 1){
+				trashBox.addMessage(m);
+				this.save(trashBox);
+			}
+			this.save(f);
+		}
+	}
 	
 	/**
 	 * Devuelve todas las carpetas del actor actual

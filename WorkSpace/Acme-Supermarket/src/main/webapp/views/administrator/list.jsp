@@ -11,12 +11,13 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
+	
 	<!-- Dashboard 1 -->
 	<spring:message code="administrator.consumerMoreOrders"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="consumers" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -24,10 +25,10 @@
 	 
 	<!-- Dashboard 2 -->
 	<spring:message code="administrator.consumerSpentMoreMoney"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="consumers" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -35,10 +36,10 @@
 	 
 	<!-- Dashboard 3 -->
 	<spring:message code="administrator.bestSellingItem"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="items" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -46,10 +47,10 @@
 	
 	<!-- Dashboard 4 -->
 	<spring:message code="administrator.worstSellingItem"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="items" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -57,10 +58,10 @@
 	
 	<!-- Dashboard 5 -->
 	<spring:message code="administrator.clerkMoreOrders"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="clerks" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="ckerk.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -68,10 +69,10 @@
 	
 	<!-- Dashboard 6 -->
 	<spring:message code="administrator.clerkLessOrders"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="clerks" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="ckerk.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -79,10 +80,10 @@
 	
 	<!-- Dashboard 7 -->
 	<spring:message code="administrator.consumerCancelledMoreOrders"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="consumers" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -90,10 +91,10 @@
 	
 	<!-- Dashboard 8 -->
 	<spring:message code="administrator.consumerCancelledLessOrders"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="consumers" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="consumer.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -101,10 +102,10 @@
 	
 	<!-- Dashboard 9 -->
 	<spring:message code="administrator.ratioCancelledCurrentMonth"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="ratioCancelledCurrentMonth" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="ratio.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
@@ -112,10 +113,10 @@
 	
 	<!-- Dashboard 10 -->
 	<spring:message code="administrator.itemMoreComment"/>
-	
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="items" requestURI="${requestURI}" id="row">
-		
+		<!-- Attributes -->
 		<spring:message code="item.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 	
