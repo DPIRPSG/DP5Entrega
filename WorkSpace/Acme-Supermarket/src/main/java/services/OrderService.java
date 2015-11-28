@@ -34,6 +34,12 @@ public class OrderService {
 	@Autowired
 	private OrderItemService orderItemService;
 	
+	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
+	private ConsumerService consumerService;
+	
 	//Constructors -----------------------------------------------------------
 	
 	public OrderService(){
@@ -75,6 +81,8 @@ public class OrderService {
 	//req: 12.6
 	public Collection<Order> findAll(){
 		Collection<Order> result;
+		
+		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
 		
 		result = orderRepository.findAll();
 		
@@ -215,6 +223,7 @@ public class OrderService {
 	public void cancelOrder(Order order){
 		Assert.notNull(order);
 		Assert.isTrue(order.getId() != 0);
+		Assert.isTrue(order.getConsumer().equals(consumerService.findByPrincipal()), "Only the owner can cancel the order");
 		
 		Clerk clerk;
 		

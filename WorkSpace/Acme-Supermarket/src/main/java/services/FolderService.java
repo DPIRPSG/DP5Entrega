@@ -70,6 +70,8 @@ public class FolderService {
 		Assert.notNull(folder);
 		Assert.isTrue(folder.getId() != 0);
 		
+		Assert.isTrue(folder.getActor().equals(actorService.findByPrincipal()), "Only the owner can delete the folder");
+		
 		// Si es del sistema no debe poder borrarse
 		Assert.isTrue(!folder.getIsSystem(), "It's a system Folder and couldn't be removed");
 		
@@ -191,6 +193,9 @@ public class FolderService {
 		Assert.notNull(origin);
 		Assert.isTrue(origin.getId() != 0);
 		Assert.notNull(destination);
+		
+		Assert.isTrue(origin.getActor().equals(destination.getActor()), "The owner of the source folder is not the same as the destination");
+		Assert.isTrue(origin.getActor().equals(actorService.findByPrincipal()), "Only the owner can manage the folder");
 		
 		Assert.isTrue(origin.getMessages().contains(m));
 		
