@@ -30,8 +30,6 @@ public class MessageServiceTest extends AbstractTest {
 
 	// Service under test -------------------------
 	@Autowired
-	private FolderService folderService;
-	@Autowired
 	private ConsumerService consumerService;
 	@Autowired
 	private MessageService messageService;
@@ -53,7 +51,7 @@ public class MessageServiceTest extends AbstractTest {
 		Date moment;
 		
 		authenticate("consumer1");
-		consumer = consumerService.findAll().iterator().next();
+		consumer = consumerService.findByPrincipal();
 		message = messageService.create();
 		messages = new ArrayList<Message>();
 		recipients = new ArrayList<Actor>();
@@ -104,53 +102,42 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testManageFoldersAndMessages2(){
 		System.out.println("Requisito 24.2 - Manage his or her folders and messages.");
-		System.out.println("MessageServiceTest - testManageFoldersAndMessages1 - StartPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages2 - StartPoint");
 		
 		Message message;
 		Collection<Folder> folders;
 		Collection<Message> messages;
-		Collection<Actor> recipients;
 		Consumer consumer;
-		Date moment;
 		Folder folderToEliminate;
 		
 		authenticate("consumer1");
-		consumer = consumerService.findAll().iterator().next();
-		//message = consumer.getFolders().iterator().next().getMessages().iterator().next();
+		consumer = consumerService.findByPrincipal();
 		messages = new ArrayList<Message>();
-		recipients = new ArrayList<Actor>();
-		moment = new Date();
 		message = null;
 		folderToEliminate = null;
 		
 		System.out.println("Consumer sobre el que se trabaja");
 		System.out.println(consumer.getName());
 		folders = consumer.getFolders();
-		recipients.add(consumer);
+
 		
 		System.out.println("Lista de folders del consumer");
 		for(Folder f:folders){
 			messages.addAll(f.getMessages());
-			//System.out.println(f.getName());
 			for(Message m:f.getMessages()){
-				System.out.println(f.getName() + " -> " + m.getSubject());
+				System.out.println(f.getName() + " -> "+ m.getSubject() + ": " + m.getBody());
 				message = m;
 				folderToEliminate = f;
 				
 			}
 		}
-		
-		//message.setSubject("Prueba");
-		//message.setBody("Probamos a crear un mensaje");
-		//message.setMoment(moment);
-		//message.setSender(consumer);
-		//message.setRecipients(recipients);
-		
-		//messageService.firstSave(message);
-		
-		//messageService.addMessageToFolders(message);
+
 		System.out.println("Antes de eliminar");
+		
+		System.out.println("Lo debe mover a TrashBox");
+		
 		messageService.deleteMessageFromFolder(message, folderToEliminate);
+		
 		System.out.println("Después de eliminar");
 		
 		Actor actor;
@@ -160,7 +147,7 @@ public class MessageServiceTest extends AbstractTest {
 		System.out.println("Lista de folders del consumer");
 		for(Folder f:actor.getFolders()){
 			for(Message m:f.getMessages()){
-				System.out.println(f.getName() + " -> " + m.getSubject());
+				System.out.println(f.getName() + " -> " + m.getSubject() + ": " + m.getBody());
 				message = m;
 				folderToEliminate = f;
 				
@@ -170,106 +157,128 @@ public class MessageServiceTest extends AbstractTest {
 		
 		authenticate(null);
 		
-		System.out.println("MessageServiceTest - testManageFoldersAndMessages1 - FinishPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages2 - FinishPoint");
 	}
 	
 	@Test
 	public void testManageFoldersAndMessages3(){
 		System.out.println("Requisito 24.2 - Manage his or her folders and messages.");
-		System.out.println("FolderServiceTest - testManageFoldersAndMessages3 - StartPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages3 - StartPoint");
 		
-		Folder folder;
+		Message message;
 		Collection<Folder> folders;
 		Collection<Message> messages;
 		Consumer consumer;
+		Folder folderToEliminate;
 		
-		authenticate("consumer1");
-		consumer = consumerService.findAll().iterator().next();
-		folder = folderService.create();
+		authenticate("consumer2");
+		consumer = consumerService.findByPrincipal();
 		messages = new ArrayList<Message>();
+		message = null;
+		folderToEliminate = null;
 		
 		System.out.println("Consumer sobre el que se trabaja");
 		System.out.println(consumer.getName());
 		folders = consumer.getFolders();
+
 		
-		System.out.println("Lista de folders del consumer antes de añadir uno nuevo");
+		System.out.println("Lista de folders del consumer");
 		for(Folder f:folders){
-			System.out.println(f.getName());
-		}
-		folder.setName("Folder nueva");
-		folder.setIsSystem(false);
-		folder.setActor(consumer);
-		folder.setMessages(messages);
-		
-		folders.add(folder);
-		
-		System.out.println("Lista de folders del consumer después de añadir una nueva");
-		consumer.setFolders(folders);
-		folders = consumer.getFolders();
-		for(Folder f:folders){
-			System.out.println(f.getName());
-		}
-		
-		for(Folder f:folders){
-			if(f.getIsSystem()==false){
-				f.setName("Folder actualizada");
-				break;
+			messages.addAll(f.getMessages());
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> "+ m.getSubject() + ": " + m.getBody());
+				message = m;
+				folderToEliminate = f;
+				
 			}
 		}
+
+		System.out.println("Antes de eliminar");
 		
-		consumer.setFolders(folders);
-		folders = consumer.getFolders();
+		System.out.println("Lo debe borrar solo de Importantes");
 		
-		System.out.println("Lista de folders del consumer tras la modificación de una que no es del sistema.");
-		for(Folder f:folders){
-			System.out.println(f.getName());
+		messageService.deleteMessageFromFolder(message, folderToEliminate);
+		
+		System.out.println("Después de eliminar");
+		
+		Actor actor;
+		
+		actor = actorService.findByPrincipal();
+		
+		System.out.println("Lista de folders del consumer");
+		for(Folder f:actor.getFolders()){
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> " + m.getSubject() + ": " + m.getBody());
+				message = m;
+				folderToEliminate = f;
+				
+			}
 		}
+		System.out.println();
 		
 		authenticate(null);
 		
-		System.out.println("FolderServiceTest - testManageFoldersAndMessages3 - FinishPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages3 - FinishPoint");
 	}
 	
 	@Test
 	public void testManageFoldersAndMessages4(){
 		System.out.println("Requisito 24.2 - Manage his or her folders and messages.");
-		System.out.println("FolderServiceTest - testManageFoldersAndMessages4 - StartPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages4 - StartPoint");
 		
 		Message message;
+		Collection<Folder> folders;
+		Collection<Message> messages;
 		Consumer consumer;
-		Collection<Message> received;
-		Folder folder;
+		Folder folderToEliminate;
 		
-		authenticate("consumer1");
+		authenticate("consumer3");
+		consumer = consumerService.findByPrincipal();
+		messages = new ArrayList<Message>();
 		message = null;
-		folder = null;
-		consumer = consumerService.findAll().iterator().next();
-		received = new ArrayList<Message>();
-		received = consumer.getReceived();
+		folderToEliminate = null;
 		
-		System.out.println("Mensajes antes:");
-		for(Message m:received){
-			System.out.println(m.getSubject() + ": " + m.getBody());
-			message = m;
-		}
+		System.out.println("Consumer sobre el que se trabaja");
+		System.out.println(consumer.getName());
+		folders = consumer.getFolders();
+
 		
-		for(Folder f:consumer.getFolders()){
-			if(f.getMessages().contains(message)){
-				folder = f;
+		System.out.println("Lista de folders del consumer");
+		for(Folder f:folders){
+			messages.addAll(f.getMessages());
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> "+ m.getSubject() + ": " + m.getBody());
+				message = m;
+				folderToEliminate = f;
+				
 			}
 		}
+
+		System.out.println("Antes de eliminar");
 		
-		//messageService.deleteMessageFromFolder(message, folder);
+		System.out.println("Lo debe borrar de TrashBox");
 		
+		messageService.deleteMessageFromFolder(message, folderToEliminate);
 		
-		System.out.println("Mensajes después:");
-		received = consumer.getReceived();
-		for(Message m:received){
-			System.out.println(m.getSubject() + ": " + m.getBody());
+		System.out.println("Después de eliminar");
+		
+		Actor actor;
+		
+		actor = actorService.findByPrincipal();
+		
+		System.out.println("Lista de folders del consumer");
+		for(Folder f:actor.getFolders()){
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> " + m.getSubject() + ": " + m.getBody());
+				message = m;
+				folderToEliminate = f;
+				
+			}
 		}
+		System.out.println();
 		
 		authenticate(null);
 		
-		System.out.println("FolderServiceTest - testManageFoldersAndMessages4 - FinishPoint");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages4 - FinishPoint");
 	}
 }

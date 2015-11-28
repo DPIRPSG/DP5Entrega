@@ -193,6 +193,7 @@
 				<ref bean="folder10"/>
 				<ref bean="folder11"/>
 				<ref bean="folder12"/>
+				<ref bean="folder25"/>
 			</list>
 		</property>
 		<property name="sent">
@@ -389,10 +390,11 @@
 				<ref bean="folder4"/>
 				<ref bean="folder7"/>
 				<ref bean="folder10"/>
-				<ref bean="folder13"/>
+				<ref bean="folder15"/>
 				<ref bean="folder16"/>
 				<ref bean="folder19"/>
 				<ref bean="folder22"/>
+				<ref bean="folder25"/>
 			</list>
 		</property>
 	</bean>
@@ -529,7 +531,6 @@
 		<property name="actor" ref="consumer3"/>
 		<property name="messages">
 			<list>
-				<ref bean="message1"/>
 			</list>
 		</property>
 	</bean>
@@ -550,6 +551,7 @@
 		<property name="actor" ref="consumer3"/>
 		<property name="messages">
 			<list>
+				<ref bean="message1"/>
 			</list>
 		</property>
 	</bean>
@@ -643,6 +645,17 @@
 		<property name="actor" ref="consumer4"/>
 		<property name="messages">
 			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder25" class="domain.Folder">
+		<property name="name" value="Importantes"/>
+		<property name="isSystem" value="false"/>
+		<property name="actor" ref="consumer2"/>
+		<property name="messages">
+			<list>
+				<ref bean="message1"/>
 			</list>
 		</property>
 	</bean>
