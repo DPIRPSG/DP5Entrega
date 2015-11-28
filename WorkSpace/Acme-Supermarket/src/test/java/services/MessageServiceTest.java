@@ -33,9 +33,10 @@ public class MessageServiceTest extends AbstractTest {
 	private ConsumerService consumerService;
 	@Autowired
 	private MessageService messageService;
-	
 	@Autowired
 	private ActorService actorService;
+	@Autowired
+	private FolderService folderService;
 		
 	// Test ---------------------------------------
 	@Test
@@ -280,5 +281,68 @@ public class MessageServiceTest extends AbstractTest {
 		authenticate(null);
 		
 		System.out.println("MessageServiceTest - testManageFoldersAndMessages4 - FinishPoint");
+	}
+	
+	@Test
+	public void testManageFoldersAndMessages5(){
+		System.out.println("Requisito 24.2 - Manage his or her folders and messages.");
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages5 - StartPoint");
+		
+		Message message;
+		Collection<Folder> folders;
+		Collection<Message> messages;
+		Consumer consumer;
+		Folder originFolder;
+		Folder destinationFolder;
+		
+		authenticate("consumer4");
+		consumer = consumerService.findByPrincipal();
+		messages = new ArrayList<Message>();
+		message = null;
+		originFolder = null;
+		destinationFolder = null;
+		
+		System.out.println("Consumer sobre el que se trabaja");
+		System.out.println(consumer.getName());
+		folders = consumer.getFolders();
+
+		
+		System.out.println("Lista de folders del consumer");
+		for(Folder f:folders){
+			messages.addAll(f.getMessages());
+			if(f.getName().equals("InBox")) {
+				originFolder = f;
+			} else if(f.getName().equals("Importantes")) {
+				destinationFolder = f;
+			}
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> "+ m.getSubject() + ": " + m.getBody());
+				message = m;				
+			}
+		}
+
+		System.out.println("Antes de mover de carpeta");
+		
+		System.out.println("Lo debe mover de InBox a Importantes");
+		
+		folderService.moveMessage(originFolder, destinationFolder, message);
+		
+		System.out.println("Después de mover de carpeta");
+		
+		Actor actor;
+		
+		actor = actorService.findByPrincipal();
+		
+		System.out.println("Lista de folders del consumer");
+		for(Folder f:actor.getFolders()){
+			for(Message m:f.getMessages()){
+				System.out.println(f.getName() + " -> " + m.getSubject() + ": " + m.getBody());
+			}
+		}
+		System.out.println();
+		
+		authenticate(null);
+		
+		System.out.println("MessageServiceTest - testManageFoldersAndMessages5 - FinishPoint");
 	}
 }
