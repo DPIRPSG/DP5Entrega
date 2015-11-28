@@ -105,11 +105,7 @@ public class FolderService {
 			
 			count = 0;
 			Folder trashBox;
-			
-			for(Folder folder:this.findByNameActorIDIsSystem("TrashBox", actor, true)){
-				System.out.println("Carpetas encontradas: "+folder.getName());
-			}
-			
+
 			for(Folder folder:actor.getFolders()){
 				if(folder.getMessages().contains(m)){
 					count++;

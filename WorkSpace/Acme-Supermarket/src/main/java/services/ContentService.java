@@ -27,6 +27,12 @@ public class ContentService {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 	
+	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
+	private ConsumerService consumerService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ContentService(){
@@ -73,6 +79,7 @@ public class ContentService {
 		Assert.isTrue(shoppingCart.getId() != 0);
 		Assert.notNull(item);
 		Assert.isTrue(item.getId() != 0);
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "The consumer is not the owner of the shoppingcart");
 		
 		Content result;
 		
@@ -82,6 +89,8 @@ public class ContentService {
 	}
 	
 	public void emptyByShoppingCart(ShoppingCart shoppingCart){
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "The consumer is not the owner of the shoppingcart");
+		
 		Collection<Content> contents;
 		
 		contents = this.findByShoppingCart(shoppingCart);
@@ -104,6 +113,8 @@ public class ContentService {
 	 */
 	//req: 11.2, 11.3
 	public int quantityByShoppingCartAndItem(ShoppingCart shoppingCart, Item item){
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "The consumer is not the owner of the shoppingcart");
+		
 		int result;
 		Content content;
 		
@@ -123,6 +134,7 @@ public class ContentService {
 	 */
 	//req: 11.3, 11.4, 11.5	
 	public void updateQuantityByShoppingCartAndItem(ShoppingCart shoppingCart, Item item, int quantity){
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "The consumer is not the owner of the shoppingcart");
 		Assert.notNull(shoppingCart);
 		Assert.isTrue(shoppingCart.getId() != 0);
 		Assert.notNull(item);
@@ -149,6 +161,8 @@ public class ContentService {
 	 */
 	//req: 11.3	
 	public void createByShoppingCartAndItem(ShoppingCart shoppingCart, Item item){
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "The consumer is not the owner of the shoppingcart");
+
 		int quantity;
 		
 		quantity = this.quantityByShoppingCartAndItem(shoppingCart, item);

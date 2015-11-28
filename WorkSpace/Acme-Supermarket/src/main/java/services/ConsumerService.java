@@ -27,6 +27,9 @@ public class ConsumerService {
 	@Autowired
 	private FolderService folderService;
 	
+	@Autowired
+	private ActorService actorService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ConsumerService(){
@@ -66,6 +69,8 @@ public class ConsumerService {
 	 */
 	// req: 12.5
 	public Collection<Consumer> findAll(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list consumers");
+		
 		Collection<Consumer> result;
 		
 		result = consumerRepository.findAll();
@@ -97,6 +102,7 @@ public class ConsumerService {
 	 */
 	//req: 12.7.1
 	public Collection<Consumer> findConsumerMoreOrders(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list consumers");
 		Collection<Consumer> result;
 		
 		result = consumerRepository.findConsumerMoreOrders();
@@ -110,6 +116,7 @@ public class ConsumerService {
 	 */
 	//req: 12.7.2
 	public Collection<Consumer> findConsumerSpentMoreMoney(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list consumers");
 		Collection<Consumer> result;
 		
 		result = consumerRepository.findConsumerSpentMoreMoney();
@@ -122,6 +129,7 @@ public class ConsumerService {
 	 */
 	//req: 17.6.3
 	public Collection<Consumer> findConsumerMoreOrdersCancelled(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list consumers");
 		Collection<Consumer> result;
 		
 		result = consumerRepository.findConsumerMoreOrdersCancelled();
@@ -134,6 +142,7 @@ public class ConsumerService {
 	 */
 	//req: 17.6.4
 	public Collection<Consumer> findConsumerLessOrdersCancelled(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list consumers");
 		Collection<Consumer> result;
 		
 		result = consumerRepository.findConsumerLessOrdersCancelled();

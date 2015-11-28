@@ -25,6 +25,9 @@ public class CategoryService {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private ActorService actorService;
+	
 	//Constructors -----------------------------------------------------------
 	
 	public CategoryService(){
@@ -51,6 +54,8 @@ public class CategoryService {
 	//req: 12.4
 	public void save(Category category){
 		Assert.notNull(category);
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can save categories");
+
 		
 		categoryRepository.save(category);
 	}
@@ -61,6 +66,7 @@ public class CategoryService {
 	//req: 12.4
 	public void delete(Category category){
 		Assert.notNull(category);
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create categories");
 		
 		Collection<Item> items;
 		

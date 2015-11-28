@@ -105,12 +105,13 @@ public class ConsumerServiceTest extends AbstractTest{
 		sent = new ArrayList<Message>();
 		orders = new ArrayList<Order>();
 		
-		
+		authenticate("admin");
 		all = consumerService.findAll();
 		System.out.println("Lista de Consumers antes de la creación de otro");
 		for(Consumer c:all){
 			System.out.println(c.getName());
 		}
+		authenticate(null);
 		userAccount = userAccountService.createComplete("Consumer99", "91ec1f9333300048c9496d036a694f86", "CONSUMER");
 		
 		result = consumerService.create();
@@ -128,11 +129,13 @@ public class ConsumerServiceTest extends AbstractTest{
 
 		consumerService.save(result);
 		
+		authenticate("admin");
 		all = consumerService.findAll();
 		System.out.println("Lista de Consumers después de la creación de otro");
 		for(Consumer c:all){
 			System.out.println(c.getName());
 		}
+		authenticate(null);
 		
 		System.out.println("ConsumerServiceTest - testConsumer1 - FinishPoint");
 	}
