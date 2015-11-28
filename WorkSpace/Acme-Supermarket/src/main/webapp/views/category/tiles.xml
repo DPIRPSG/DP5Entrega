@@ -10,7 +10,7 @@
 	</definition>
 	
 	<definition name="category/edit" extends="master.page">	
-		<put-attribute name="title" value="Edition of a category" />
+		<put-attribute name="title" value="Edit a category" />
 		<put-attribute name="body" value="/views/category/edit.jsp" />
 	</definition>
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -10,16 +11,16 @@
 
 
 <security:authorize access="hasRole('ADMIN')">
-
+<!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="categories" requestURI="${requestURI}" id="row">
-	
+		<!-- Action links -->
 		<display:column>
 			<a href="category/edit.do?categoryId=${row.id}">
 				<spring:message	code="category.list.edit" />
 			</a>
 		</display:column>
-		
+		<!-- Attributes -->
 		<spring:message code="category.list.name" var="nameHeader" />
 		<display:column property="name" title="${nameHeader}" sortable="true" />
 		
@@ -36,15 +37,14 @@
 		
 		<spring:message code="category.list.taxValue" var="taxValueHeader" />
 		<display:column property="taxValue" title="${taxValueHeader}" sortable="true" />
-
-		<div>
-			<a href="item/administrator/create.do"> <spring:message
-					code="category.list.create" />
-			</a>
-		</div>
-
-	
+		
 </display:table>
+<!-- Action links -->
+<div>
+	<a href="item/administrator/create.do"> <spring:message
+			code="category.list.create" />
+	</a>
+</div>
 	
 </security:authorize>	
 	

@@ -10,10 +10,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasRole('ADMIN')">
-
+	<!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
 		name="orders" requestURI="${requestURI}" id="row">
 		
+		<!-- Attributes -->
 		<spring:message code="order.ticker" var="tickerHeader" />
 		<display:column property="ticker" title="${tickerHeader}" sortable="false" />
 		
