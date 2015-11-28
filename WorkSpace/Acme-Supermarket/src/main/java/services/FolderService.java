@@ -52,10 +52,14 @@ public class FolderService {
 	 * Guarda un folder creado o modificado
 	 */
 	//req: 24.2
-	public void save(Folder folder){
+	public Folder save(Folder folder){
 		Assert.notNull(folder);
 		
-		folderRepository.save(folder);
+		Folder result;
+		
+		result = folderRepository.save(folder);
+		
+		return result;
 	}
 	
 	/**
@@ -102,18 +106,21 @@ public class FolderService {
 			count = 0;
 			Folder trashBox;
 			
-			trashBox = null;
+			for(Folder folder:this.findByNameActorIDIsSystem("TrashBox", actor, true)){
+				System.out.println("Carpetas encontradas: "+folder.getName());
+			}
 			
 			for(Folder folder:actor.getFolders()){
 				if(folder.getMessages().contains(m)){
 					count++;
 				}
-				if(folder.getName().equals("TrashBox") && folder.getIsSystem()){
-					trashBox = folder;
+				if(count>1){
+					break;
 				}
 			}
 			f.removeMessage(m);
 			if(count == 1){
+				trashBox = this.findByNameActorIDIsSystem("TrashBox", actor, true).iterator().next();
 				trashBox.addMessage(m);
 				this.save(trashBox);
 			}
@@ -166,5 +173,39 @@ public class FolderService {
 		actor.setFolders(result);
 		
 		return result;
+	}
+	
+	/**
+	 * Encuentra una carpeta dado su nombre, actor e isSystem
+	 */
+	private Collection<Folder> findByNameActorIDIsSystem(String name, Actor actor, boolean isSystem){
+		Collection<Folder> result;
+		
+		result = folderRepository.findByNameActorIDIsSystem(name.trim(), isSystem, actor.getId());
+		
+		return result;		
+	}
+	
+	/**
+	 * Mover un mensaje de una carpeta a otra
+	 */
+	public void moveMessage(Folder origin, Folder destination, Message m){
+		Assert.notNull(m);
+		Assert.isTrue(m.getId()!= 0);
+		Assert.notNull(origin);
+		Assert.isTrue(origin.getId() != 0);
+		Assert.notNull(destination);
+		
+		Assert.isTrue(origin.getMessages().contains(m));
+		
+		if(destination.getId()==0){
+			destination = this.save(destination);
+		}
+		
+		if(!destination.getMessages().contains(m)){
+			this.addMessage(destination, m);
+		}
+		
+		this.removeMessage(origin, m);
 	}
 }
