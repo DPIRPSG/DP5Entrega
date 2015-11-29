@@ -31,9 +31,6 @@
 		<spring:message code="item.price" var="priceHeader" />
 		<display:column property="price" title="${priceHeader}" sortable="true" />
 		
-		<spring:message code="item.content" var="contentHeader" />
-		<display:column property="content" title="${contentHeader}" sortable="true" />
-		
 		<!-- Form -->
 		<form:form action="shopping-cart/consumer/list.do" modelAttribute="item">
 			<!-- Hidden Attributes -->
@@ -42,10 +39,11 @@
 		
 			<!-- Editable Attributes -->
 			<form:label path="content">
-				<spring:message code="item.content" />:
+				<spring:message code="item.content" var="contentHeader" />
+				<display:column property="content" title="${contentHeader}" sortable="false" />
 			</form:label>
 			<form:input path="content" />
-			<form:errors cssClass="error" path="price" />
+			<form:errors cssClass="error" path="content" />
 		</form:form>
 	
 	</display:table>
