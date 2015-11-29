@@ -304,7 +304,7 @@ public class ShoppingCartServiceTest extends AbstractTest{
 			System.out.println(o.getTicker());
 		}
 		
-		order = shoppingCartService.createCheckOut(consumer);
+		order = shoppingCartService.createCheckOut();
 		
 		order.setConsumer(consumer);
 		

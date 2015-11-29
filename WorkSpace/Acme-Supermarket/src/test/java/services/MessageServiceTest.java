@@ -52,8 +52,9 @@ public class MessageServiceTest extends AbstractTest {
 		Consumer consumer;
 		Date moment;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		message = messageService.create();
 		messages = new ArrayList<Message>();
 		recipients = new ArrayList<Actor>();
@@ -114,9 +115,10 @@ public class MessageServiceTest extends AbstractTest {
 		Date moment;
 		Folder folderToEliminate;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
 		//message = consumer.getFolders().iterator().next().getMessages().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		messages = new ArrayList<Message>();
 		recipients = new ArrayList<Actor>();
 		moment = new Date();
@@ -183,8 +185,9 @@ public class MessageServiceTest extends AbstractTest {
 		Collection<Message> messages;
 		Consumer consumer;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		folder = folderService.create();
 		messages = new ArrayList<Message>();
 		
@@ -240,10 +243,11 @@ public class MessageServiceTest extends AbstractTest {
 		Collection<Message> received;
 		Folder folder;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		message = null;
 		folder = null;
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		received = new ArrayList<Message>();
 		received = consumer.getReceived();
 		

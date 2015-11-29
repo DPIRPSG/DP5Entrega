@@ -120,7 +120,7 @@ public class WareHouseService {
 		}
 		
 		Assert.notNull(orderItem, "No existe OrderItem del Item pasado");
-		
+				
 		unitsServed = orderItem.getUnitsServed() + quantity;
 		
 		Assert.isTrue(unitsServed <= orderItem.getUnits(), "Se intentan añadir mas unidades de las solicitadas por el OrderItem");
@@ -128,7 +128,11 @@ public class WareHouseService {
 		storageService.subtractQuantityByWareHouseAndItem(wareHouse, item, quantity);
 		orderItem.setUnitsServed(unitsServed);
 		
+		System.out.println("Punto ini!");
+		
 		orderItemService.save(orderItem);
+		
+		System.out.println("Punto fin!");
 	}
 	
 	/**

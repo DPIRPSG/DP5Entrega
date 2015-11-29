@@ -272,6 +272,8 @@ public class OrderService {
 	 */
 	//ref: 18.3
 	private Collection<Order> findAllNotAssigned(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
+		
 		Collection<Order> result;
 		
 		//deben estar ordenadas siendo la primera la más antigua
@@ -285,6 +287,8 @@ public class OrderService {
 	 */
 	//ref: 17.6.5
 	public double rateOrderCancelled(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN")||actorService.checkAuthority("CLERK"), "Only an admin or a clerk can list the orders");
+
 		double result;
 		
 		result = orderRepository.rateOrderCancelled();
@@ -297,6 +301,7 @@ public class OrderService {
 	 */
 	public void completedOrder(Order order) {
 		Assert.notNull(order);
+		Assert.isTrue(order.getClerk().equals(clerkService.findByprincipal()), "Only the owner clerk can complete the order");
 		
 		order.setDeliveryMoment(new Date());
 		
