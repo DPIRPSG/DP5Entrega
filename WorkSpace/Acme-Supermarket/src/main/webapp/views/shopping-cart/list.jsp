@@ -31,14 +31,22 @@
 		<spring:message code="item.price" var="priceHeader" />
 		<display:column property="price" title="${priceHeader}" sortable="true" />
 		
-		<input type="submit" name="add.content" value="<spring:message code = item.add.content var=addContentHeader/>"/>
-		<display:column property="addContent" title="${addContentHeader}" sortable="false"/>
-		
 		<spring:message code="item.content" var="contentHeader" />
 		<display:column property="content" title="${contentHeader}" sortable="true" />
 		
-		<input type="submit" name="substract.content" value="<spring:message code = item.substract.content var=substractContentHeader/>"/>
-		<display:column property="substractContent" title="${var=substractContentHeader}" sortable="false"/>
+		<!-- Form -->
+		<form:form action="shopping-cart/consumer/list.do" modelAttribute="item">
+			<!-- Hidden Attributes -->
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+		
+			<!-- Editable Attributes -->
+			<form:label path="content">
+				<spring:message code="item.content" />:
+			</form:label>
+			<form:input path="content" />
+			<form:errors cssClass="error" path="price" />
+		</form:form>
 	
 	</display:table>
 	
@@ -49,5 +57,9 @@
 			<spring:message	code="item.checkout" />
 		</a>
 	</jstl:if>
+	
+	<input type="button" name="save"
+		value="<spring:message code="item.save" />"
+		onclick="javascript: relativeRedir('/');" />
 	
 </security:authorize>
