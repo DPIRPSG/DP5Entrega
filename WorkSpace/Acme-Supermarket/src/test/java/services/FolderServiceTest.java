@@ -43,11 +43,12 @@ public class FolderServiceTest extends AbstractTest{
 		Consumer consumer;
 		Collection<Folder> folders;
 		
-		authenticate("consumer1");
-		
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
 		System.out.println("Consumer sobre el que se trabaja");
 		System.out.println(consumer.getName());
+		
+		authenticate(consumer.getUserAccount().getUsername());
 		folders = consumer.getFolders();
 		System.out.println("Lista de folders del consumer y los mensajes de cada folder");
 		for(Folder f:folders){
@@ -72,8 +73,9 @@ public class FolderServiceTest extends AbstractTest{
 		Collection<Message> messages;
 		Consumer consumer;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		folder = folderService.create();
 		messages = new ArrayList<Message>();
 		
@@ -114,8 +116,9 @@ public class FolderServiceTest extends AbstractTest{
 		Collection<Message> messages;
 		Consumer consumer;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		folder = folderService.create();
 		messages = new ArrayList<Message>();
 		
@@ -171,8 +174,9 @@ public class FolderServiceTest extends AbstractTest{
 		Collection<Message> messages;
 		Consumer consumer;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		folder = folderService.create();
 		messages = new ArrayList<Message>();
 		
@@ -228,10 +232,12 @@ public class FolderServiceTest extends AbstractTest{
 		Collection<Message> received;
 		Folder folder;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		message = null;
 		folder = null;
 		consumer = consumerService.findAll().iterator().next();
+		
+		authenticate(consumer.getUserAccount().getUsername());
 		received = new ArrayList<Message>();
 		received = consumer.getReceived();
 		

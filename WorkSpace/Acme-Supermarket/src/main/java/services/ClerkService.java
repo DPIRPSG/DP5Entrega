@@ -28,6 +28,9 @@ public class ClerkService {
 	@Autowired
 	private FolderService folderService;
 	
+	@Autowired
+	private ActorService actorService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ClerkService(){
@@ -43,6 +46,8 @@ public class ClerkService {
 	public Clerk create(){
 		Clerk result;
 		Collection<Folder> folders;
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create clerk");
+
 		
 		result = new Clerk();
 		
@@ -58,6 +63,8 @@ public class ClerkService {
 	//req: 17.1
 	public void save(Clerk clerk){
 		Assert.notNull(clerk);
+		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or a clerk can save clerk");
+
 		
 		clerkRepository.save(clerk);
 	}
@@ -67,6 +74,8 @@ public class ClerkService {
 	 */
 	//req: test
 	public Collection<Clerk> findAll(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list the clerks");
+		
 		Collection<Clerk> result;
 		
 		result = clerkRepository.findAll();
@@ -95,6 +104,8 @@ public class ClerkService {
 	 */
 	//req: 17.6.1
 	public Collection<Clerk> findClerkServedMoreOrders(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list the clerks");
+		
 		Collection<Clerk> result;
 		
 		result = clerkRepository.findClerkServedMoreOrders();
@@ -107,6 +118,8 @@ public class ClerkService {
 	 */
 	//req: 17.6.2
 	public Collection<Clerk> findClerkServedLessOrders(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can list the clerks");
+		
 		Collection<Clerk> result;
 		
 		result = clerkRepository.findClerkServedLessOrders();

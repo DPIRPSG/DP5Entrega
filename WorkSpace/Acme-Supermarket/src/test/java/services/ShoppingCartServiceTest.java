@@ -44,9 +44,10 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		ShoppingCart shoppingCart;
 		Consumer consumer;
 		
-		authenticate("consumer1");
-		
+		authenticate("admin");
 		consumer = consumerService.findAll().iterator().next();
+		
+		authenticate(consumer.getUserAccount().getUsername());
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		
 		System.out.println("Consumer al que hacemos referencia:");
@@ -68,9 +69,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Consumer consumer;
 		Item item;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		
+		authenticate(consumer.getUserAccount().getUsername());		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		item = itemService.findAll().iterator().next();
 		
@@ -101,9 +104,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Consumer consumer;
 		Item item;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
+		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		item = null;
 		for(Content c:shoppingCart.getContents()){
@@ -139,9 +144,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Consumer consumer;
 		Item item;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());		
+		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		item = null;
 		
@@ -178,9 +185,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Consumer consumer;
 		String comment;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
+		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		comment = "comentario de los test";
 		
@@ -214,9 +223,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Consumer consumer;
 		String comment;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());		
+		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		comment = shoppingCart.getComments().iterator().next();
 		
@@ -251,9 +262,11 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		String commentOld;
 		String commentNew;
 		
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());		
+		
 		shoppingCart = shoppingCartService.findByConsumer(consumer);
 		commentOld = shoppingCart.getComments().iterator().next();
 		commentNew = "Comentario modificado";
@@ -290,9 +303,10 @@ public class ShoppingCartServiceTest extends AbstractTest{
 		Order order;
 		CreditCard creditCard;
 
-		authenticate("consumer1");
+		authenticate("admin");
 		
 		consumer = consumerService.findAll().iterator().next();
+		authenticate(consumer.getUserAccount().getUsername());
 		
 		System.out.println("Lista de Items de ShoppingCart antes del checkout:");
 		for(Content c: consumer.getShoppingCart().getContents()){
@@ -304,7 +318,7 @@ public class ShoppingCartServiceTest extends AbstractTest{
 			System.out.println(o.getTicker());
 		}
 		
-		order = shoppingCartService.createCheckOut(consumer);
+		order = shoppingCartService.createCheckOut();
 		
 		order.setConsumer(consumer);
 		

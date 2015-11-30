@@ -24,6 +24,9 @@ public class ExchangeRateService {
 	
 	// Supporting services ----------------------------------------------------
 	
+	@Autowired
+	private ActorService actorService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public ExchangeRateService(){
@@ -32,6 +35,8 @@ public class ExchangeRateService {
 	// Simple CRUD methods ----------------------------------------------------
 	
 	public ExchangeRate create(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create exchangerate");
+
 		ExchangeRate result;
 		
 		result = new ExchangeRate();
@@ -40,12 +45,14 @@ public class ExchangeRateService {
 	}
 	
 	public void save(ExchangeRate exchangeRate){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can save exchangerate");
 		Assert.notNull(exchangeRate);
 		
 		exchangeRateRepository.save(exchangeRate);
 	}
 	
 	public void delete(ExchangeRate exchangeRate){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete exchangerate");
 		Assert.notNull(exchangeRate);
 		
 		exchangeRateRepository.delete(exchangeRate.getId());

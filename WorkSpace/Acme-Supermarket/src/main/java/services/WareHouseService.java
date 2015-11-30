@@ -33,6 +33,12 @@ public class WareHouseService {
 	@Autowired
 	private OrderItemService orderItemService;
 	
+	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
+	private ClerkService clerkService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public WareHouseService(){
@@ -46,6 +52,8 @@ public class WareHouseService {
 	 */
 	//req: 17.2
 	public Collection<WareHouse> findAll(){
+		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or clerk can list the warehouses");
+		
 		Collection<WareHouse> result;
 		
 		result = wareHouseRepository.findAll();
@@ -70,6 +78,8 @@ public class WareHouseService {
 	 */
 	//req: 17.3
 	public void save(WareHouse wareHouse){
+		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or clerk can save a warehouse");
+
 		Assert.notNull(wareHouse);
 		
 		wareHouseRepository.save(wareHouse);
@@ -81,7 +91,8 @@ public class WareHouseService {
 	//req: 17.4
 	public void delete(WareHouse wareHouse){
 		Assert.notNull(wareHouse);
-		
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete a warehouses");
+
 		Collection<Item> items;
 		
 		items = itemService.findAllByWareHouse(wareHouse);
@@ -94,10 +105,12 @@ public class WareHouseService {
 	//Other business methods -------------------------------------------------
 	
 	/**
-	 * Dado un wareHouse y un item, actualiza la cantidad
+	 * Dado un wareHouse y un item, actualiza la cantidad (no para las orders)
 	 */
 	//req: 17.5
 	public void changeItemQuantity(WareHouse wareHouse, Item item, int quantity){
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can change the quantity of items in the warehouses");
+		
 		storageService.updateQuantityByWareHouseAndItem(wareHouse, item, quantity);
 	}
 	/**
@@ -105,6 +118,8 @@ public class WareHouseService {
 	 */
 	public void addItemToOrderItem(WareHouse wareHouse, Item item, int quantity, Order order){
 		Assert.isTrue(storageService.quantityByWareHouseAndItem(wareHouse, item) >= quantity, "No se pueden añadir a una order mas items de los que hay en el WareHouse");
+		
+		Assert.isTrue(clerkService.findByprincipal().equals(order.getClerk()), "Only the clerk of the order can add items");
 		
 		OrderItem orderItem;
 		Collection<OrderItem> orderItems;
@@ -120,7 +135,7 @@ public class WareHouseService {
 		}
 		
 		Assert.notNull(orderItem, "No existe OrderItem del Item pasado");
-		
+				
 		unitsServed = orderItem.getUnitsServed() + quantity;
 		
 		Assert.isTrue(unitsServed <= orderItem.getUnits(), "Se intentan añadir mas unidades de las solicitadas por el OrderItem");
@@ -128,14 +143,18 @@ public class WareHouseService {
 		storageService.subtractQuantityByWareHouseAndItem(wareHouse, item, quantity);
 		orderItem.setUnitsServed(unitsServed);
 		
+		System.out.println("Punto ini!");
+		
 		orderItemService.save(orderItem);
+		
+		System.out.println("Punto fin!");
 	}
 	
 	/**
 	 * Elimina una cantidad de items del wareHouse
 	 */
 	//ref: 18.4
-	public void removeItemQuantity(WareHouse wareHouse, Item item, int quantityToEliminate){
+	private void removeItemQuantity(WareHouse wareHouse, Item item, int quantityToEliminate){
 		int actualQuantity;
 		Integer finalQuantity;
 		

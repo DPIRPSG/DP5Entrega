@@ -53,6 +53,7 @@ public class MessageServiceTest extends AbstractTest {
 		
 		authenticate("consumer1");
 		consumer = consumerService.findByPrincipal();
+
 		message = messageService.create();
 		messages = new ArrayList<Message>();
 		recipients = new ArrayList<Actor>();
@@ -113,6 +114,7 @@ public class MessageServiceTest extends AbstractTest {
 		
 		authenticate("consumer1");
 		consumer = consumerService.findByPrincipal();
+
 		messages = new ArrayList<Message>();
 		message = null;
 		folderToEliminate = null;
@@ -174,6 +176,7 @@ public class MessageServiceTest extends AbstractTest {
 		
 		authenticate("consumer2");
 		consumer = consumerService.findByPrincipal();
+
 		messages = new ArrayList<Message>();
 		message = null;
 		folderToEliminate = null;

@@ -27,6 +27,9 @@ public class MessageService {
 	@Autowired
 	private FolderService folderService;
 	
+	@Autowired
+	private ActorService actorService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public MessageService(){
@@ -56,6 +59,7 @@ public class MessageService {
 	//req: 24.2
 	private Message save(Message message){
 		Assert.notNull(message);
+		Assert.isTrue(message.getSender().equals(actorService.findByPrincipal()), "Only the sender can save the message");
 		
 		Message result;
 		
@@ -108,6 +112,7 @@ public class MessageService {
 	//req: 24.1
 	public Collection<Message> findAllByFolder(Folder folder){
 		Assert.notNull(folder);
+		Assert.isTrue(folder.getActor().equals(actorService.findByPrincipal()), "Only the owner of the folder can display them");
 		
 		Collection<Message> result;
 		
@@ -125,6 +130,8 @@ public class MessageService {
 		Assert.isTrue(message.getId() != 0);
 		Assert.notNull(folder);
 		Assert.isTrue(folder.getId() != 0);
+		
+		Assert.isTrue(folder.getActor().equals(actorService.findByPrincipal()), "Only the owner of the folder can delete a message");		
 		
 		folderService.removeMessage(folder, message);
 	}	
