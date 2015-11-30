@@ -42,6 +42,7 @@ public class CategoryService {
 	//req: 12.4
 	public Category create(){
 		Category result;
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create categories");
 		
 		result = new Category();
 		
@@ -66,7 +67,7 @@ public class CategoryService {
 	//req: 12.4
 	public void delete(Category category){
 		Assert.notNull(category);
-		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create categories");
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete categories");
 		
 		Collection<Item> items;
 		

@@ -63,7 +63,7 @@ public class ClerkService {
 	//req: 17.1
 	public void save(Clerk clerk){
 		Assert.notNull(clerk);
-		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or a clerk can create clerk");
+		Assert.isTrue(actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK"), "Only an admin or a clerk can save clerk");
 
 		
 		clerkRepository.save(clerk);

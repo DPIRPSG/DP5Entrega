@@ -26,10 +26,7 @@ public class ContentService {
 
 	@Autowired
 	private ShoppingCartService shoppingCartService;
-	
-	@Autowired
-	private ActorService actorService;
-	
+		
 	@Autowired
 	private ConsumerService consumerService;
 	
