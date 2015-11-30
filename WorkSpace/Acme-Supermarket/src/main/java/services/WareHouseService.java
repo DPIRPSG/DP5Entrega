@@ -143,11 +143,7 @@ public class WareHouseService {
 		storageService.subtractQuantityByWareHouseAndItem(wareHouse, item, quantity);
 		orderItem.setUnitsServed(unitsServed);
 		
-		System.out.println("Punto ini!");
-		
 		orderItemService.save(orderItem);
-		
-		System.out.println("Punto fin!");
 	}
 	
 	/**
