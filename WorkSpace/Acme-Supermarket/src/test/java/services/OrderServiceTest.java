@@ -44,6 +44,7 @@ public class OrderServiceTest extends AbstractTest{
 		
 		Collection<Order> all;
 		
+		authenticate("admin");
 		all = orderService.findAll();
 		
 		System.out.println("Lista de order placed en el sistema");
@@ -63,18 +64,20 @@ public class OrderServiceTest extends AbstractTest{
 		Order order;
 		Collection<Order> all;
 		
-		authenticate("consumer1");
-		
 		order = null;
+		
+		authenticate("admin");
 		
 		all = orderService.findAll();
 		
+		authenticate(null);
 		for(Order o:all){
 			if(o.getClerk()==null){
 				order = o;
 				break;
 			}
 		}
+		authenticate(order.getConsumer().getUserAccount().getUsername());
 		
 		System.out.println("Fecha de cancelación de la order antes de cancelarla:");
 		System.out.println(order.getCancelMoment());
@@ -162,6 +165,7 @@ public class OrderServiceTest extends AbstractTest{
 		System.out.println("Unidades servidas: " + orderItem.getUnitsServed());
 		
 		System.out.println("Servimos sus unidades restantes:");
+		
 		warehouseService.addItemToOrderItem(warehouse, item, 2, order);
 		
 		System.out.println("Comprobemos que ya tenga deliveryMoment a hoy y unidades servidas 2:");

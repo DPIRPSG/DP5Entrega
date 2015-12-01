@@ -29,6 +29,12 @@ public class ShoppingCartService {
 	@Autowired
 	private OrderService orderService;
 	
+	@Autowired
+	private ConsumerService consumerService;
+	
+	@Autowired
+	private ActorService actorService;
+	
 	//Constructors -----------------------------------------------------------
 
 	public ShoppingCartService(){
@@ -56,13 +62,14 @@ public class ShoppingCartService {
 	 * Ninguno de los elementos creados son persistidos en la base de datos
 	 */
 	// req: 11.7
-	public Order createCheckOut(Consumer consumer){
-		Assert.notNull(consumer);
-		Assert.isTrue(consumer.getId() != 0);
+	public Order createCheckOut(){
+		Assert.isTrue(actorService.checkAuthority("CONSUMER"), "Only the consumer can place the order");
 		
+		Consumer consumer;
 		Order result;
 		ShoppingCart shoppingCart;
 		
+		consumer = consumerService.findByPrincipal();
 		shoppingCart = this.findByConsumer(consumer);		
 		
 		// Create a order with their orderItems (none is persist)
@@ -78,6 +85,7 @@ public class ShoppingCartService {
 	public void saveCheckOut(Order order, Consumer consumer){
 		Assert.notNull(order);
 		Assert.notNull(consumer);
+		Assert.isTrue(order.getConsumer().equals(consumer), "Only the owner can keep order");
 		
 		orderService.save(order);
 		this.emptyShoppingCart(consumer);

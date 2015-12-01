@@ -32,7 +32,7 @@
 
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="consumer1" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="password" value="4ee9c60cc32e6615c3c45dc6822c45de" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -42,24 +42,9 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CONSUMER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="clerk1" />
-		<property name="password" value="91ec1f9324753048c9496d036a694f86" />
+		<property name="password" value="72121c039f48bb6241c94332cadc945e" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -71,7 +56,7 @@
 	
 	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="consumer2" />
-		<property name="password" value="91ec1f9324753048c8096d036a694f86" />
+		<property name="password" value="4ca80127919a65aace84bc96346c5bc4" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -83,7 +68,7 @@
 	
 	<bean id="userAccount6" class="security.UserAccount">
 		<property name="username" value="consumer3" />
-		<property name="password" value="91ec1f9324753048c0096d036a69hf86" />
+		<property name="password" value="8be8dff8f3a089b30b5e97f00a04cb71" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -95,7 +80,7 @@
 	
 	<bean id="userAccount7" class="security.UserAccount">
 		<property name="username" value="clerk2" />
-		<property name="password" value="91ec1f932475304889496d036a694f86" />
+		<property name="password" value="331c8a338939ee7853c1e66182673242" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -107,7 +92,7 @@
 	
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="clerk3" />
-		<property name="password" value="91ec0f9324753048c9496d036a694f86" />
+		<property name="password" value="23aadaa3f6c8129b729beacc6f87330c" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -119,7 +104,7 @@
 	
 	<bean id="userAccount9" class="security.UserAccount">
 		<property name="username" value="consumer4" />
-		<property name="password" value="91ec0f932475304h6r496d036a694f86" />
+		<property name="password" value="e397705af838b414380b125b7ae1979f" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -208,6 +193,7 @@
 				<ref bean="folder10"/>
 				<ref bean="folder11"/>
 				<ref bean="folder12"/>
+				<ref bean="folder25"/>
 			</list>
 		</property>
 		<property name="sent">
@@ -272,6 +258,7 @@
 				<ref bean="folder22"/>
 				<ref bean="folder23"/>
 				<ref bean="folder24"/>
+				<ref bean="folder26"/>
 			</list>
 		</property>
 		<property name="sent">
@@ -404,10 +391,11 @@
 				<ref bean="folder4"/>
 				<ref bean="folder7"/>
 				<ref bean="folder10"/>
-				<ref bean="folder13"/>
+				<ref bean="folder15"/>
 				<ref bean="folder16"/>
 				<ref bean="folder19"/>
 				<ref bean="folder22"/>
+				<ref bean="folder25"/>
 			</list>
 		</property>
 	</bean>
@@ -544,7 +532,6 @@
 		<property name="actor" ref="consumer3"/>
 		<property name="messages">
 			<list>
-				<ref bean="message1"/>
 			</list>
 		</property>
 	</bean>
@@ -565,6 +552,7 @@
 		<property name="actor" ref="consumer3"/>
 		<property name="messages">
 			<list>
+				<ref bean="message1"/>
 			</list>
 		</property>
 	</bean>
@@ -655,6 +643,27 @@
 	<bean id="folder24" class="domain.Folder">
 		<property name="name" value="TrashBox"/>
 		<property name="isSystem" value="true"/>
+		<property name="actor" ref="consumer4"/>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder25" class="domain.Folder">
+		<property name="name" value="Importantes"/>
+		<property name="isSystem" value="false"/>
+		<property name="actor" ref="consumer2"/>
+		<property name="messages">
+			<list>
+				<ref bean="message1"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="folder26" class="domain.Folder">
+		<property name="name" value="Importantes"/>
+		<property name="isSystem" value="false"/>
 		<property name="actor" ref="consumer4"/>
 		<property name="messages">
 			<list>

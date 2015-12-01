@@ -22,6 +22,9 @@ public class CommentService {
 	private CommentRepository commentRepository;
 	
 	//Supporting services ----------------------------------------------------
+	
+	@Autowired
+	private ActorService actorService;
 
 	//Constructors -----------------------------------------------------------
 	
@@ -61,6 +64,8 @@ public class CommentService {
 	public void delete(Comment comment){
 		Assert.notNull(comment);
 		Assert.isTrue(comment.getId() != 0);
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can delete comments");
+		
 
 		commentRepository.delete(comment.getId());
 	}

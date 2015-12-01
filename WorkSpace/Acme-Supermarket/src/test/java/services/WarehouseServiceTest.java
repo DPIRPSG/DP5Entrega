@@ -149,10 +149,12 @@ public class WarehouseServiceTest extends AbstractTest{
 		Order order;
 		Clerk clerk;
 		
-		authenticate("clerk1");
+		authenticate("admin");
 		
 		orders = orderService.findAll();
 		clerk = clerkService.findAll().iterator().next();
+		
+		authenticate(clerk.getUserAccount().getUsername());
 		
 		order = null;
 		for(Order o: orders){

@@ -521,4 +521,60 @@ public class ItemServiceTest extends AbstractTest{
 		
 		System.out.println("ItemServiceTest - testCreateComment1 - FinishPoint");
 	}
+	
+	@Test
+	public void testDeleteComment1(){
+		System.out.println("Requisito 25.1 - Delete a comment.");
+		System.out.println("ItemServiceTest - testDeleteComment1 - StartPoint");
+		
+		Comment comment;
+		Collection<Comment> all;
+		Item item;
+		
+		authenticate("admin");
+		
+		item = itemService.findAll().iterator().next();
+		System.out.println("Item al que vamos a eliminar el comentario antes de borrar");
+		System.out.println(item.getName());
+		all = commentService.findAllByItem(item);
+		System.out.println("Lista los comment de un item antes de borrar");
+		for(Comment c:all){
+			System.out.println(c.getTitle() + ", " + c.getText());
+		}
+		
+		comment = all.iterator().next();
+		commentService.delete(comment);
+		
+		all = commentService.findAllByItem(item);
+		
+		System.out.println("Lista los comment de un item después de borrar:");
+		for(Comment c:all){
+			System.out.println(c.getTitle() + ", " + c.getText());
+		}
+		
+		authenticate(null);
+		
+		System.out.println("ItemServiceTest - testDeleteComment1 - FinishPoint");
+	}
+	
+	@Test
+	public void testFindItemMoreComments1(){
+		System.out.println("Requisito 25.2.1 - The item/s that has/have more comments.");
+		System.out.println("ItemServiceTest - testFindItemWorstSelling1 - StartPoint");
+		
+		Collection<Item> all;
+		
+		authenticate("admin");
+		
+		all = itemService.findItemMoreComments();
+		
+		System.out.println("The item/s that has/have more comments.");
+		for(Item i:all){
+			System.out.println(i.getName());
+		}
+		
+		authenticate(null);
+		
+		System.out.println("ConsumerServiceTest - testFindItemWorstSelling1 - FinishPoint");
+	}
 }

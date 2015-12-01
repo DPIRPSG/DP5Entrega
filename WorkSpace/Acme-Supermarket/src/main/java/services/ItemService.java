@@ -25,6 +25,12 @@ public class ItemService {
 	
 	//Supporting services ----------------------------------------------------
 	
+	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
+	private ConsumerService consumerService;
+	
 	//Constructors -----------------------------------------------------------
 	
 	public ItemService(){
@@ -54,6 +60,8 @@ public class ItemService {
 		Assert.notNull(item);
 		Assert.isTrue(item.getId() != 0);
 		
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can create items");		
+		
 		item.setDeleted(true);
 		this.save(item);
 	}
@@ -64,6 +72,8 @@ public class ItemService {
 	//req: 12.2
 	public void save(Item item){
 		Assert.notNull(item);
+		
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only an admin can save items");
 		
 		itemRepository.save(item);
 	}
@@ -122,6 +132,8 @@ public class ItemService {
 	public Collection<Item> findAllByShoppingCart(ShoppingCart shoppingCart){
 		Assert.notNull(shoppingCart);
 		
+		Assert.isTrue(consumerService.findByPrincipal().equals(shoppingCart.getConsumer()), "Only the owner of the shopping cart can view contents");
+		
 		Collection<Item> result;
 		
 		result = itemRepository.findAllByShoppingCartId(shoppingCart.getId());
@@ -149,6 +161,11 @@ public class ItemService {
 		Assert.notNull(wareHouse);
 		
 		Collection<Item> result;
+		Boolean status;
+		
+		status = actorService.checkAuthority("ADMIN") || actorService.checkAuthority("CLERK");
+		
+		Assert.isTrue(status, "Only admins or clerk can list items by warehouse");
 		
 		result = itemRepository.findAllByWareHouseId(wareHouse.getId());
 		
@@ -169,13 +186,18 @@ public class ItemService {
 		
 		return result;
 	}
-		
+	
+	/**
+	 * Busca todos incluyendo los eliminados
+	 */
 	public Collection<Item> findAllDeleted(){
-			Collection<Item> result;
+		Assert.isTrue(actorService.checkAuthority("ADMIN"), "Only the admins can list the items deleted");
+		
+		Collection<Item> result;
 			
-			result = itemRepository.findAll();
+		result = itemRepository.findAll();
 			
-			return result;
+		return result;
 	}
 
 	/**
